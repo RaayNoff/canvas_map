@@ -4,16 +4,19 @@ import { SubmitHandler } from "react-hook-form/dist/types";
 import s from "./sidebar.module.scss";
 import { useTypedSelector } from "../../../hooks/useTypedSelector";
 import { useActions } from "../../../hooks/useActions";
-import marksService from "../../../services/marksService";
 
 type FormValues = {
-  address: string;
   title: string;
   description: string;
 };
 
 const Sidebar: FC = () => {
-  const { selectedAddress } = useTypedSelector((state) => state.sidebar);
+  const { selectedAddress, response, isOpened } = useTypedSelector(
+    (state) => state.sidebar
+  );
+  const { newSelectedMark } = useTypedSelector((state) => state.map);
+  const { setSidebarOpened, setAddress, setNewSelectedMark, addNewMark } =
+    useActions();
   const {
     register,
     handleSubmit,
@@ -21,20 +24,32 @@ const Sidebar: FC = () => {
     formState: { isValid },
   } = useForm<FormValues>({
     mode: "onChange",
+    defaultValues: {
+      description: "Description 1",
+      title: "Title 1",
+    },
   });
-  const { setSidebarOpened } = useActions();
-
-  const { response, isOpened } = useTypedSelector((state) => state.sidebar);
 
   const handleSub: SubmitHandler<FormValues> = (data) => {
-    marksService.setMark(selectedAddress, data.title, data.description);
+    addNewMark({
+      x: newSelectedMark?.x || 0,
+      y: newSelectedMark?.y || 0,
+      address: selectedAddress,
+      descrition: data.description,
+      title: data.title,
+    });
+
     reset();
+    setAddress("");
     setSidebarOpened(false);
+    setNewSelectedMark(null);
   };
 
   const handleClose = (e: React.MouseEvent) => {
     e.preventDefault();
     setSidebarOpened(false);
+    setAddress("");
+    reset();
   };
 
   return (
@@ -44,22 +59,26 @@ const Sidebar: FC = () => {
         className={s.sidebar__form}
         onSubmit={handleSubmit(handleSub)}
       >
-        <h1 className={s.sidebar__title}>Выберите адресс на карте</h1>
-        <h2 className={s.sidebar__subtitle}>Адресс: {selectedAddress}</h2>
+        <h1 className={s.sidebar__title}>Выберите адрес на карте</h1>
+        <h2 className={s.sidebar__subtitle}>Адрес: {selectedAddress}</h2>
         <select
-          {...(register("title"), { required: true })}
+          {...register("title", { required: true })}
           className={s.sidebar__select}
         >
           {response?.reference.titles.map((t, i) => (
-            <option key={i}>{t.name}</option>
+            <option key={i} value={t.name}>
+              {t.name}
+            </option>
           ))}
         </select>
         <select
-          {...(register("description"), { required: true })}
+          {...register("description", { required: true })}
           className={s.sidebar__select}
         >
           {response?.reference.descriptions.map((d) => (
-            <option key={d.id}>{d.name}</option>
+            <option key={d.id} value={d.name}>
+              {d.name}
+            </option>
           ))}
         </select>
         <section className={s.sidebar__controls}>

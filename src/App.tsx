@@ -4,9 +4,9 @@ import { useActions } from "./hooks/useActions";
 
 function App() {
   const { fetchFormData } = useActions();
-  const { getAllMarks } = useActions();
+  const { setMarksFromStorage } = useActions();
   useEffect(() => {
-    getAllMarks();
+    setMarksFromStorage();
     fetchFormData();
   }, []);
 

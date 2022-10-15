@@ -1,17 +1,21 @@
 @import "../../../style/_variables.scss";
 
 .sidebar {
+	z-index: 4;
 	display: none;
-	margin-top: 100px;
-	height: 100;
-	width: 320px;
-	min-width: 320px;
+	height: 300px;
+	width: 300px;
+	min-width: 300px;
+	position: absolute;
+	border-radius: 10px;
+	top: 50%;
+	transform: translateY(-48.5%);
+	left: 0;
+	background-color: rgba(#9db5dc, 0.5);
 
 	@media (max-width: 1280.98px) {
 		margin-top: 0;
 	}
-
-	background-color: rgb(124, 121, 121);
 
 	// .sidebar__form
 	&__form {
@@ -36,7 +40,9 @@
 
 	// .sidebar__select
 	&__select {
-		width: 250px;
+		width: 200px;
+		height: 20px;
+		font-size: 16px;
 		margin-bottom: 10px;
 	}
 

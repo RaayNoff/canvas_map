@@ -18,6 +18,9 @@ const sidebarSlice = createSlice({
     setSidebarOpened(state, action: PayloadAction<boolean>) {
       state.isOpened = action.payload;
     },
+    setSelectedAddress(state, action: PayloadAction<string>) {
+      state.selectedAddress = action.payload;
+    },
   },
 });
 

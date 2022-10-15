@@ -1,6 +1,7 @@
 import axios from "axios";
 import { AppDispatch } from "..";
 import { ISidebarFormResponse } from "../../models/responses/ISidebarFormReponse";
+import Addresses from "../../static/Addresses";
 import sidebarSlice from "../slices/sidebar";
 
 export const fetchFormData = () => async (dispatch: AppDispatch) => {
@@ -17,4 +18,10 @@ export const fetchFormData = () => async (dispatch: AppDispatch) => {
 export const setSidebarOpened =
   (condition: boolean) => (dispatch: AppDispatch) => {
     dispatch(sidebarSlice.actions.setSidebarOpened(condition));
+  };
+
+export const setAddress =
+  (address: string = Addresses.getRandomAdress()) =>
+  (dispatch: AppDispatch) => {
+    dispatch(sidebarSlice.actions.setSelectedAddress(address));
   };

@@ -1,21 +1,24 @@
-import { useEffect, useRef } from "react";
+import { useState, useMemo } from "react";
 
-export const usePosition = (
-  elementRef: any,
-  offsetTop: number,
-  offsetLeft: number
-) => {
-  const positionRef = useRef<any>(null);
+export const usePosition = (offsetTop: number, offsetLeft: number) => {
+  const [requiredPosition, setRequiredPosition] = useState({
+    top: 0,
+    left: 0,
+  });
 
-  useEffect(() => {
-    if (elementRef.current && positionRef.current) {
-      const top = elementRef.current.offsetTop;
-      const left = elementRef.current.offsetLeft;
+  const [mapElement, setMapElement] = useState(
+    document.getElementsByClassName("konvajs-content")[0] as HTMLDivElement
+  );
 
-      positionRef.current.style.top = top + offsetTop + "px";
-      positionRef.current.style.left = left + offsetLeft + "px";
-    }
-  }, [elementRef.current?.offsetTop, elementRef.current?.offsetLeft]);
+  useMemo(() => {
+    const top = mapElement.offsetTop;
+    const left = mapElement.offsetLeft;
 
-  return positionRef;
+    setRequiredPosition({
+      top: top + offsetTop,
+      left: left + offsetLeft,
+    });
+  }, [mapElement, offsetTop, offsetLeft]);
+
+  return requiredPosition;
 };

@@ -6,6 +6,7 @@ import marksService from "../../services/marksService";
 const initialState: IMapState = {
   isEmpty: true,
   marks: [],
+  newSelectedMark: null,
 };
 
 const mapSlice = createSlice({
@@ -18,8 +19,11 @@ const mapSlice = createSlice({
     addNewMark(state, action: PayloadAction<IMark>) {
       state.marks = state.marks.concat(action.payload);
     },
-    getAllMarks(state, action: PayloadAction<IMark[]>) {
+    setAllMarks(state, action: PayloadAction<IMark[]>) {
       state.marks = action.payload;
+    },
+    setNewSelectedMark(state, action: PayloadAction<IMark | null>) {
+      state.newSelectedMark = action.payload;
     },
   },
 });
