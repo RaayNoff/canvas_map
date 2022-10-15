@@ -3,12 +3,17 @@ import { IMark } from "../models/IMark";
 class MarksService {
   getAll() {
     const storageResult = localStorage.getItem("marks");
+    console.log("MarkService::Storage result: ", storageResult);
 
     if (storageResult === null) return [] as IMark[];
 
     return JSON.parse(storageResult) as IMark[];
   }
-  setMark(address: string, title: string, description: string) {}
+  setMark(mark: IMark) {
+    const storageMarks = this.getAll();
+    storageMarks.push(mark);
+    localStorage.setItem("marks", JSON.stringify(storageMarks));
+  }
 }
 
 export default new MarksService();

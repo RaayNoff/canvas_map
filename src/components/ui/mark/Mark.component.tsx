@@ -1,16 +1,53 @@
-import { FC } from "react";
-import s from "./mark.module.scss";
+import { FC, useRef } from "react";
+import { Circle } from "react-konva";
+import { KonvaEventObject } from "konva/lib/Node";
+import { usePosition } from "../../../hooks/usePosition";
+import { useActions } from "../../../hooks/useActions";
 
 interface IMarkProps {
-  position: {
-    top: number;
-    left: number;
-  };
+  x: number;
+  y: number;
+  address?: string;
+  title?: string;
+  description?: string;
+  fill: string;
+  canShowBalloon: boolean;
 }
 
-const Mark: FC<IMarkProps> = ({ position: { left, top } }) => {
+const Mark: FC<IMarkProps> = ({
+  fill,
+  x,
+  y,
+  canShowBalloon,
+  address,
+  title,
+  description,
+}) => {
+  const circleRef = useRef(null);
+  const { changeBalloonData, changeBalloonPosition, changeBalloonVisible } =
+    useActions();
+  const { left: balloonLeft, top: balloonTop } = usePosition(y, x);
+
+  const handleBaloonRequest = (e: KonvaEventObject<MouseEvent>) => {
+    if (canShowBalloon) {
+      changeBalloonData(title || "", description || "");
+
+      changeBalloonPosition(balloonTop, balloonLeft);
+      changeBalloonVisible(true);
+    }
+  };
+
   return (
-    <div className={s.dot} style={{ left: `${left}px`, top: `${top}px` }}></div>
+    <>
+      <Circle
+        ref={circleRef}
+        x={x}
+        y={y}
+        radius={10}
+        fill={fill}
+        onClick={(e) => handleBaloonRequest(e)}
+      ></Circle>
+    </>
   );
 };
 
