@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/RaayNoff/map/static/css/main.0598527f.css",
+    "main.js": "/RaayNoff/map/static/js/main.befd6893.js",
+    "static/media/map.png": "/RaayNoff/map/static/media/map.2029e7f53449795cec7d.png",
+    "index.html": "/RaayNoff/map/index.html",
+    "main.0598527f.css.map": "/RaayNoff/map/static/css/main.0598527f.css.map",
+    "main.befd6893.js.map": "/RaayNoff/map/static/js/main.befd6893.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0598527f.css",
+    "static/js/main.befd6893.js"
+  ]
+}
