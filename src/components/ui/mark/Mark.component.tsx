@@ -1,4 +1,4 @@
-import { FC, useRef } from "react";
+import React, { FC, useRef } from "react";
 import { Circle } from "react-konva";
 import { KonvaEventObject } from "konva/lib/Node";
 import { usePosition } from "../../../hooks/usePosition";
@@ -28,7 +28,7 @@ const Mark: FC<IMarkProps> = ({
     useActions();
   const { left: balloonLeft, top: balloonTop } = usePosition(y, x);
 
-  const handleBaloonRequest = (e: KonvaEventObject<MouseEvent>) => {
+  const handleBaloonRequest = (e: KonvaEventObject<any>) => {
     if (canShowBalloon) {
       changeBalloonData(title || "", description || "");
 
@@ -46,6 +46,7 @@ const Mark: FC<IMarkProps> = ({
         radius={10}
         fill={fill}
         onClick={(e) => handleBaloonRequest(e)}
+        onTap={(e) => handleBaloonRequest(e)}
       ></Circle>
     </>
   );

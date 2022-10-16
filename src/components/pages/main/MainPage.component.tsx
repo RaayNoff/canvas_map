@@ -8,8 +8,8 @@ import Balloon from "../../buisness/baloon/Balloon.component";
 const MainPage: FC = () => {
   return (
     <>
+      <Sidebar></Sidebar>
       <section className={s.main}>
-        <Sidebar></Sidebar>
         <div className="container">
           <Map></Map>
         </div>

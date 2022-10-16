@@ -25,12 +25,11 @@ const Map = () => {
 
   const canvasClick = (e: KonvaEventObject<MouseEvent>) => {
     if (isSidebarOpened) {
-      const x = e.evt.x;
-      const y = e.evt.y;
+      const { x, y } = e.currentTarget.getRelativePointerPosition();
 
       setNewSelectedMark({
-        x: x - 300,
-        y: y - 100,
+        x: x,
+        y: y,
       });
       setAddress();
     }
