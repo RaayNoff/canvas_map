@@ -23,3 +23,8 @@
 		color: white;
 	}
 }
+
+.hidden {
+	opacity: 0;
+	pointer-events: none;
+}

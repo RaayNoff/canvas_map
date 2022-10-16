@@ -13,7 +13,7 @@ const preloaderSlice = createSlice({
       state.isDone = action.payload;
     },
     changePercentage(state, action: PayloadAction<number>) {
-      state.percentage = action.payload;
+      state.percentage += action.payload;
     },
   },
 });

@@ -9,7 +9,7 @@ const MainPage: FC = () => {
   return (
     <>
       <Sidebar></Sidebar>
-      <section className={s.main}>
+      <section className={`${s.main}`}>
         <div className="container">
           <Map></Map>
         </div>

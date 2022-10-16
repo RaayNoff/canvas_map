@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 
 export const usePosition = (offsetTop: number, offsetLeft: number) => {
   const [requiredPosition, setRequiredPosition] = useState({
@@ -9,10 +9,13 @@ export const usePosition = (offsetTop: number, offsetLeft: number) => {
   const [mapElement, setMapElement] = useState(
     document.getElementsByClassName("konvajs-content")[0] as HTMLDivElement
   );
+  const [contaner, setContainer] = useState(
+    document.getElementsByClassName("sobaka")[0] as HTMLDivElement
+  );
 
-  useMemo(() => {
-    const top = mapElement.offsetTop;
-    const left = mapElement.offsetLeft;
+  useEffect(() => {
+    const top = mapElement.offsetTop + mapElement.scrollTop;
+    const left = mapElement.offsetLeft + mapElement.scrollLeft;
 
     setRequiredPosition({
       top: top + offsetTop,

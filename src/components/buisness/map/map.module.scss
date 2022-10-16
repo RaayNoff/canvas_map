@@ -2,6 +2,8 @@
 .map {
 	background-image: url("../../../assets/images/map.png");
 	background-repeat: no-repeat;
+	max-width: 1280px;
+	max-height: 800px;
 
 	// .map__info
 	&__info {

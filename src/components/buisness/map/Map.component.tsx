@@ -3,13 +3,16 @@ import s from "./map.module.scss";
 
 import { useRef } from "react";
 import { useActions } from "../../../hooks/useActions";
-import { Stage, Layer } from "react-konva";
+import { Stage, Layer, Circle } from "react-konva";
 import { KonvaEventObject } from "konva/lib/Node";
 import Mark from "../../ui/mark/Mark.component";
 
 const Map = () => {
   const { isEmpty, marks, newSelectedMark } = useTypedSelector(
     (state) => state.map
+  );
+  const { isOpened: isBalloonOpened } = useTypedSelector(
+    (state) => state.balloon
   );
   const mapRef = useRef(null);
   const { setNewSelectedMark, setAddress, changeBalloonVisible } = useActions();
@@ -32,6 +35,14 @@ const Map = () => {
         y: y,
       });
       setAddress();
+    } else {
+      handleCloseBalloon(e);
+    }
+  };
+
+  const handleCloseBalloon = (e: KonvaEventObject<any>) => {
+    if (isBalloonOpened && !e.target.attrs.radius) {
+      changeBalloonVisible(false);
     }
   };
 
@@ -43,6 +54,7 @@ const Map = () => {
         className={s.map}
         ref={mapRef}
         onClick={(e) => canvasClick(e)}
+        onTouchMove={(e) => handleCloseBalloon(e)}
       >
         <Layer className={s.map__canvas}>
           {!isSidebarOpened &&
