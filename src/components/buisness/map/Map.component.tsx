@@ -1,11 +1,12 @@
 import { useTypedSelector } from "../../../hooks/useTypedSelector";
 import s from "./map.module.scss";
 
-import { useRef } from "react";
+import { useRef, Fragment } from "react";
 import { useActions } from "../../../hooks/useActions";
-import { Stage, Layer, Circle } from "react-konva";
+import { Stage, Layer } from "react-konva";
 import { KonvaEventObject } from "konva/lib/Node";
 import Mark from "../../ui/mark/Mark.component";
+import Balloon from "../baloon/Balloon.component";
 
 const Map = () => {
   const { isEmpty, marks, newSelectedMark } = useTypedSelector(
@@ -48,37 +49,39 @@ const Map = () => {
 
   return (
     <>
-      <Stage
-        width={1280}
-        height={800}
-        className={s.map}
-        ref={mapRef}
-        onClick={(e) => canvasClick(e)}
-        onTouchMove={(e) => handleCloseBalloon(e)}
-      >
-        <Layer className={s.map__canvas}>
-          {!isSidebarOpened &&
-            marks.map((mark, i) => (
+      <Fragment>
+        <Stage
+          width={1280}
+          height={800}
+          className={s.map}
+          ref={mapRef}
+          onClick={(e) => canvasClick(e)}
+          onTouchMove={(e) => handleCloseBalloon(e)}
+        >
+          <Layer className={s.map__canvas}>
+            {!isSidebarOpened &&
+              marks.map((mark, i) => (
+                <Mark
+                  key={i}
+                  x={mark.x}
+                  y={mark.y}
+                  description={mark.descrition}
+                  title={mark.title}
+                  fill="red"
+                  canShowBalloon={true}
+                ></Mark>
+              ))}
+            {isSidebarOpened && (
               <Mark
-                key={i}
-                x={mark.x}
-                y={mark.y}
-                description={mark.descrition}
-                title={mark.title}
-                fill="red"
-                canShowBalloon={true}
+                x={newSelectedMark?.x || -10}
+                y={newSelectedMark?.y || -10}
+                fill="blue"
+                canShowBalloon={false}
               ></Mark>
-            ))}
-          {isSidebarOpened && (
-            <Mark
-              x={newSelectedMark?.x || -10}
-              y={newSelectedMark?.y || -10}
-              fill="blue"
-              canShowBalloon={false}
-            ></Mark>
-          )}
-        </Layer>
-      </Stage>
+            )}
+          </Layer>
+        </Stage>
+      </Fragment>
       {!isSidebarOpened && (
         <section className={s.map__info}>
           <button className={s.map__btn} onClick={() => addAddressHandler()}>

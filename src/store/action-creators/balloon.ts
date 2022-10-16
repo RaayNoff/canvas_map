@@ -22,7 +22,17 @@ export const changeBalloonVisible =
 
 export const changeBalloonPosition =
   (top: number, left: number) => (dispatch: AppDispatch) => {
+    const container = document.getElementsByClassName(
+      "container"
+    )[0] as HTMLDivElement;
     dispatch(
-      balloonSlice.actions.changePosition({ top: top - 70, left: left - 60 })
+      balloonSlice.actions.changePosition({
+        top: top - 70 - container.scrollTop,
+        left: left - 60 - container.scrollLeft,
+      })
     );
+  };
+export const changeScroll =
+  (scrollTop: number, scrollLeft: number) => (dispatch: AppDispatch) => {
+    dispatch(balloonSlice.actions.changeScroll({ scrollTop, scrollLeft }));
   };

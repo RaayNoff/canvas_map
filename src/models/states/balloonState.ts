@@ -4,4 +4,6 @@ export interface IBalloonState {
   currentDescription: string;
   top: number;
   left: number;
+  scrollTop: number;
+  scrollLeft: number;
 }

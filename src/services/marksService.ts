@@ -3,7 +3,6 @@ import { IMark } from "../models/IMark";
 class MarksService {
   getAll() {
     const storageResult = localStorage.getItem("marks");
-    console.log("MarkService::Storage result: ", storageResult);
 
     if (storageResult === null) return [] as IMark[];
 

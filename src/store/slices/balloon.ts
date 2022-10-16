@@ -8,6 +8,8 @@ const initialState: IBalloonState = {
   currentDescription: "",
   left: 0,
   top: 0,
+  scrollTop: 0,
+  scrollLeft: 0,
 };
 
 const balloonSlice = createSlice({
@@ -31,6 +33,13 @@ const balloonSlice = createSlice({
     ) {
       state.top = action.payload.top;
       state.left = action.payload.left;
+    },
+    changeScroll(
+      state,
+      action: PayloadAction<{ scrollTop: number; scrollLeft: number }>
+    ) {
+      state.scrollTop = action.payload.scrollTop;
+      state.scrollLeft = action.payload.scrollLeft;
     },
   },
 });

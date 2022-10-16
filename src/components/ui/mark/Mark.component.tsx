@@ -23,7 +23,6 @@ const Mark: FC<IMarkProps> = ({
   title,
   description,
 }) => {
-  const circleRef = useRef(null);
   const { changeBalloonData, changeBalloonPosition, changeBalloonVisible } =
     useActions();
   const { left, top } = usePosition(y, x);
@@ -40,7 +39,6 @@ const Mark: FC<IMarkProps> = ({
   return (
     <>
       <Circle
-        ref={circleRef}
         x={x}
         y={y}
         radius={10}

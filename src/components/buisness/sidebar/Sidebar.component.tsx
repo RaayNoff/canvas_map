@@ -59,28 +59,30 @@ const Sidebar: FC = () => {
         className={s.sidebar__form}
         onSubmit={handleSubmit(handleSub)}
       >
-        <h1 className={s.sidebar__title}>Выберите адрес на карте</h1>
-        <h2 className={s.sidebar__subtitle}>Адрес: {selectedAddress}</h2>
-        <select
-          {...register("title", { required: true })}
-          className={s.sidebar__select}
-        >
-          {response?.reference.titles.map((t, i) => (
-            <option key={i} value={t.name}>
-              {t.name}
-            </option>
-          ))}
-        </select>
-        <select
-          {...register("description", { required: true })}
-          className={s.sidebar__select}
-        >
-          {response?.reference.descriptions.map((d) => (
-            <option key={d.id} value={d.name}>
-              {d.name}
-            </option>
-          ))}
-        </select>
+        <section className={s.sidebar__common}>
+          <h1 className={s.sidebar__title}>Выберите адрес на карте</h1>
+          <h2 className={s.sidebar__subtitle}>Адрес: {selectedAddress}</h2>
+          <select
+            {...register("title", { required: true })}
+            className={s.sidebar__select}
+          >
+            {response?.reference.titles.map((t, i) => (
+              <option key={i} value={t.name}>
+                {t.name}
+              </option>
+            ))}
+          </select>
+          <select
+            {...register("description", { required: true })}
+            className={s.sidebar__select}
+          >
+            {response?.reference.descriptions.map((d) => (
+              <option key={d.id} value={d.name}>
+                {d.name}
+              </option>
+            ))}
+          </select>
+        </section>
         <section className={s.sidebar__controls}>
           <button
             className={s.sidebar__btn}

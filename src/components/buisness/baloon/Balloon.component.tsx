@@ -27,7 +27,7 @@ const Balloon: FC = () => {
       </button>
       <div className={s.balloon_data}>
         <p className={s.balloon__text}>{title}</p>
-        <p className={s.balloon__text}>{desc}</p>
+        <p className={s.balloon__description}>{desc}</p>
       </div>
       <span className={s.balloon__arrow}> </span>
     </div>
