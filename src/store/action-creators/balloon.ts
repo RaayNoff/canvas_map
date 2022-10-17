@@ -32,7 +32,3 @@ export const changeBalloonPosition =
       })
     );
   };
-export const changeScroll =
-  (scrollTop: number, scrollLeft: number) => (dispatch: AppDispatch) => {
-    dispatch(balloonSlice.actions.changeScroll({ scrollTop, scrollLeft }));
-  };
